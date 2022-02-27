@@ -30,11 +30,11 @@ func (hs *httpServer) OnTraffic(c gnet.Conn) gnet.Action {
 	//c.Write(buf)
 	addr := c.RemoteAddr().String()
 	//fmt.Println("react", addr, string(body))
-	if _, ok := hs.httpPool.Load(addr); ok {
+	if v, ok := hs.httpPool.Load(addr); ok {
 		go func() {
 			time.Sleep(time.Second * 2)
 			b := response("200 OK", "", "HELLO:"+addr)
-			c.Write(b)
+			v.(*httpConn).conn.Write(b)
 		}()
 	}
 
