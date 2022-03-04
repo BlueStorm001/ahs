@@ -1,0 +1,41 @@
+{
+  "host": [
+    {
+      "domain": "127.0.0.1",
+      "port": 8086,
+      "timeout": 20,
+      "errorResponse": "{\"code\":\"0\",\"error\":\"@error\"}",
+      "routing": [
+        "/search",
+        "/verify"
+      ],
+      "lbsModeRemark": "0 轮训 1最少链接数",
+      "lbsMode": 0,
+      "lbs": [
+        {
+          "listen": "quic",
+          "key": "quic-echo",
+          "port": 42411,
+          "headerKeys": [
+            "Method",
+            "Path",
+            "Proto",
+            "Headers"
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "mmm.himyidea.ltd",
+      "port": 80,
+      "timeout": 20,
+      "lbs": [
+        {
+          "listen": "tcp",
+          "port": 42412
+        }
+      ]
+    }
+  ],
+  "config": {}
+}
