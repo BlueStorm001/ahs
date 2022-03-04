@@ -35,7 +35,7 @@ func ResponseBody(response *Response) []byte {
 	b = append(b, '\r', '\n')
 	l := int64(len(response.Body))
 	b = append(b, "Content-Type: "...)
-	if len(response.Body) == 0 {
+	if l == 0 {
 		response.ContentType = "application/json"
 		response.Body = []byte(`{"error":"empty data"}`)
 	} else {
