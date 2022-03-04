@@ -29,7 +29,7 @@ type web struct {
 }
 
 //Init  local
-func Init(port string) {
+func Init() {
 	conf, ok := localConfiguration(true)
 	if !ok {
 		log.Println("config error")

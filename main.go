@@ -14,7 +14,7 @@ import (
 func main() {
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt, os.Kill)
-	transfer.Init("8086")
+	transfer.Init()
 	<-quit
 	transfer.Stop()
 }
