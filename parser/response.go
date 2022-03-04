@@ -35,15 +35,10 @@ func ResponseBody(response *Response) []byte {
 	b = append(b, '\r', '\n')
 	l := int64(len(response.Body))
 	b = append(b, "Content-Type: "...)
-	if l == 0 {
-		response.ContentType = "application/json"
-		response.Body = []byte(`{"error":"empty data"}`)
-	} else {
-		if response.AcceptEncoding == "gzip" && l > 1024*2 {
-			response.Body = toolkit.GzipCompressBytes(response.Body)
-			response.Headers = append(response.Headers, "Content-Encoding: gzip")
-			l = int64(len(response.Body))
-		}
+	if response.AcceptEncoding == "gzip" && l > 1024*2 {
+		response.Body = toolkit.GzipCompressBytes(response.Body)
+		response.Headers = append(response.Headers, "Content-Encoding: gzip")
+		l = int64(len(response.Body))
 	}
 	b = append(b, response.ContentType...)
 	b = append(b, '\r', '\n')
